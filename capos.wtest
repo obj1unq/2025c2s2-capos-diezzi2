@@ -17,7 +17,7 @@ describe "Parte 1 - Referencias" {
     rolando.recolectar(collarDivino)
     rolando.llegarAlCastillo()
 
-    assert.equals([espadaDelDestino, libroDeHechizos, collarDivino], castillo.artefactos())
+    assert.equals(#{espadaDelDestino, libroDeHechizos, collarDivino}, castillo.artefactos())
   }
 
   test "3 - Rolando tiene 3 tres objetos en su posesión" {

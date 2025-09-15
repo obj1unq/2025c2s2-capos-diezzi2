@@ -1,26 +1,27 @@
 object rolando {
-    const mochila        = #{}
-    var capacidadMochila = 2
+    const mochila              = #{}
+    var hogar                  = castillo
+    var capacidadMaximaMochila = 2
 
     method agrandarMochila(nuevaCapacidad) {
-        capacidadMochila = nuevaCapacidad
+        capacidadMaximaMochila = nuevaCapacidad
     }
 
     method recolectar(artefacto) {
-    if (capacidadMochila > mochila.size()) {
+    if (capacidadMaximaMochila > mochila.size()) {
         mochila.add(artefacto)
         }
     }
 
     method llegarAlCastillo() {
-        castillo.dejarArtefactos(mochila)
+        hogar.dejarArtefactos(mochila)
         mochila.clear()
     }
 
-    method posee(artefacto) = self.posesiones().contains(artefacto) 
+    method posee(artefacto) = self.posesiones().contains(artefacto)
 
     method posesiones() {
-        return mochila.union(castillo.artefactos())
+        return mochila.union(hogar.artefactos())
     }
 
     // getter
@@ -29,21 +30,11 @@ object rolando {
 }
 
 object castillo {
-    const property artefactos = #{}
+    var property artefactos = #{}
 
     method dejarArtefactos(listaDeArtefactos) {
         artefactos.addAll(listaDeArtefactos)
     }
-
-    // setter
-
-    method artefactos(listaDeArtefactos) {
-     // artefactos = listaDeArtefactos
-    }
-
-    // getter
-
-    method artefactos() = artefactos 
 }
 
 // ARTEFACTOS
