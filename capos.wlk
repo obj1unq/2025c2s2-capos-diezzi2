@@ -1,16 +1,18 @@
 object rolando {
-    const mochila              = #{}
-    var hogar                  = castillo
-    var capacidadMaximaMochila = 2
+    const mochila                     = #{}
+    var hogar                         = castillo
+    var capacidadMaximaMochila        = 2
+    var historialDeArtefactosEncontrados = []
 
     method agrandarMochila(nuevaCapacidad) {
         capacidadMaximaMochila = nuevaCapacidad
     }
 
     method recolectar(artefacto) {
-    if (capacidadMaximaMochila > mochila.size()) {
-        mochila.add(artefacto)
-        }
+        historialDeArtefactosEncontrados.add(artefacto)
+        if (capacidadMaximaMochila > mochila.size()) {
+            mochila.add(artefacto)
+            }
     }
 
     method llegarAlCastillo() {
@@ -26,7 +28,9 @@ object rolando {
 
     // getter
 
-    method mochila() = mochila 
+    method mochila() = mochila
+
+    method historialDeArtefactosEncontrados() = historialDeArtefactosEncontrados 
 }
 
 object castillo {

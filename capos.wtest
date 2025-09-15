@@ -30,4 +30,15 @@ describe "Parte 1 - Referencias" {
     assert.notThat(rolando.posee(libroDeHechizos))
     assert.equals(3, rolando.posesiones().size())
   }
+
+  test "4 - Rolando encuentra 5 artefactos" {
+    rolando.recolectar(espadaDelDestino)
+    rolando.recolectar(libroDeHechizos)
+    rolando.recolectar(collarDivino)
+    rolando.llegarAlCastillo()
+    rolando.recolectar(armaduraDeAceroValyrio)
+    rolando.recolectar(collarDivino)
+    
+    assert.equals([espadaDelDestino, libroDeHechizos, collarDivino, armaduraDeAceroValyrio, collarDivino], rolando.historialDeArtefactosEncontrados())
+  }
 }
