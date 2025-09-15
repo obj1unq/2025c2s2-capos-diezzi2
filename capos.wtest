@@ -2,6 +2,14 @@ import capos.*
 
 describe "Parte 1 - Referencias" {
 
+  method initialize() {
+    rolando.mochila(#{})
+    rolando.capacidadMaximaMochila(2)
+    rolando.hogar(castillo)
+    rolando.historialDeArtefactosEncontrados([])
+    castillo.artefactos(#{})
+  }
+
   test "1 - Rolando encuentra un tercer artefacto y no puede recolectarlo" {
     rolando.recolectar(espadaDelDestino)
     rolando.recolectar(libroDeHechizos)
@@ -40,5 +48,41 @@ describe "Parte 1 - Referencias" {
     rolando.recolectar(collarDivino)
     
     assert.equals([espadaDelDestino, libroDeHechizos, collarDivino, armaduraDeAceroValyrio, collarDivino], rolando.historialDeArtefactosEncontrados())
+  }
+}
+
+describe "Parte 2 - Mensajes con bloques" {
+
+  method initialize() {
+    rolando.mochila(#{espadaDelDestino, armaduraDeAceroValyrio, collarDivino})
+    rolando.capacidadMaximaMochila(3)
+    rolando.poderBase(5)
+  }
+
+  test "1 - Ejemplo de batalla" {
+    rolando.batallar()
+
+    assert.equals(6, rolando.poderBase())
+    assert.equals(3, espadaDelDestino.poderDePelea(rolando))
+    assert.equals(6, armaduraDeAceroValyrio.poderDePelea(rolando))
+    assert.equals(3, collarDivino.poderDePelea(rolando))
+
+    rolando.batallar()
+
+    assert.equals(7, rolando.poderBase())
+    assert.equals(3.5, espadaDelDestino.poderDePelea(rolando))
+    assert.equals(6, armaduraDeAceroValyrio.poderDePelea(rolando))
+    assert.equals(5, collarDivino.poderDePelea(rolando))
+
+    rolando.batallar()
+
+    assert.equals(8, rolando.poderBase())
+    assert.equals(4, espadaDelDestino.poderDePelea(rolando))
+    assert.equals(6, armaduraDeAceroValyrio.poderDePelea(rolando))
+    assert.equals(6, collarDivino.poderDePelea(rolando))
+  }
+
+  test "1 - Ejemplo de poder de pelea" {
+    assert.equals(19, rolando.poderDePelea())
   }
 }
