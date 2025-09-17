@@ -40,6 +40,16 @@ object rolando {
 
     method artefactoMasPoderosoGuardado(portador) = hogar.artefactoMasPoderoso(portador)
 
+    // 2.3
+
+    method enemigosQuePuedeVencer() {
+      
+    }
+    
+    method hogaresQuePuedeConquistar() {
+        self.enemigosQuePuedeVencer().map({enemigo => enemigo.hogar()})
+    }
+
     // setter
 
     method capacidadMaximaMochila(nuevaCapacidad) {
