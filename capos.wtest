@@ -5,9 +5,9 @@ describe "Parte 1 - Referencias" {
   method initialize() {
     rolando.mochila(#{})
     rolando.capacidadMaximaMochila(2)
-    rolando.hogar(castillo)
+    rolando.hogar(castilloDePiedra)
     rolando.historialDeArtefactosEncontrados([])
-    castillo.artefactos(#{})
+    castilloDePiedra.artefactos(#{})
   }
 
   test "1 - Rolando encuentra un tercer artefacto y no puede recolectarlo" {
@@ -18,18 +18,18 @@ describe "Parte 1 - Referencias" {
     assert.equals(#{espadaDelDestino,libroDeHechizos}, rolando.mochila())
   }
 
-  test "2 - Rolando deja dos artefactos en su castillo y recolecta un tercero" {
+  test "2 - Rolando deja dos artefactos en su castilloDePiedra y recolecta un tercero" {
     rolando.recolectar(espadaDelDestino)
     rolando.recolectar(libroDeHechizos)
     rolando.llegarAlCastillo()
     rolando.recolectar(collarDivino)
     rolando.llegarAlCastillo()
 
-    assert.equals(#{espadaDelDestino, libroDeHechizos, collarDivino}, castillo.artefactos())
+    assert.equals(#{espadaDelDestino, libroDeHechizos, collarDivino}, castilloDePiedra.artefactos())
   }
 
   test "3 - Rolando tiene 3 tres objetos en su posesión" {
-    castillo.artefactos(#{collarDivino, espadaDelDestino})
+    castilloDePiedra.artefactos(#{collarDivino, espadaDelDestino})
     rolando.recolectar(armaduraDeAceroValyrio)
 
     assert.that(rolando.posee(collarDivino))
@@ -89,7 +89,7 @@ describe "Parte 2 - Mensajes con bloques" {
 
   test "2 - Ejemplo de hechizos" {
     rolando.mochila(#{libroDeHechizos})
-    castillo.artefactos(#{espadaDelDestino, armaduraDeAceroValyrio, collarDivino})
+    castilloDePiedra.artefactos(#{espadaDelDestino, armaduraDeAceroValyrio, collarDivino})
     libroDeHechizos.hechizos([bendicion, invisivilidad, invocacion])
 
     assert.equals(4, libroDeHechizos.poderDePelea(rolando))
