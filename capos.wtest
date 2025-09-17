@@ -106,4 +106,29 @@ describe "Parte 2 - Mensajes con bloques" {
 
     assert.equals(0, libroDeHechizos.poderDePelea(rolando))
   }
+
+  test "3 - Ejemplo de enemigos que puede vencer y hogares que puede conquistar" {
+    rolando.mochila(#{espadaDelDestino, armaduraDeAceroValyrio, collarDivino})
+
+    assert.equals(#{archibaldo, astra}, rolando.enemigosQuePuedeVencer())
+    assert.equals([palacioDeMarmol, torreDeMarfil], rolando.hogaresQuePuedeConquistar())
+  }
+
+  test "4 - Ejemplos con Rolando poderoso y no poderoso" {
+    rolando.mochila(#{espadaDelDestino, armaduraDeAceroValyrio, collarDivino})
+
+    assert.notThat(rolando.esPoderoso())
+
+    rolando.poderBase(10)
+
+    assert.that(rolando.esPoderoso())
+  }
+
+  test "5 - " {
+    rolando.poderBase(15)
+    rolando.mochila(#{espadaDelDestino, armaduraDeAceroValyrio, collarDivino})
+    
+    assert.that(rolando.poseeUnArtefactoFatal())
+    ass
+  }
 }

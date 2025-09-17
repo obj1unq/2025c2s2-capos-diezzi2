@@ -4,6 +4,7 @@ object rolando {
     var capacidadMaximaMochila                    = 2
     var property historialDeArtefactosEncontrados = []
     var property poderBase                        = 5
+    var enemigos                                  = #{caterina, archibaldo, astra}
 
     // 1.1 y 1.4
 
@@ -43,11 +44,25 @@ object rolando {
     // 2.3
 
     method enemigosQuePuedeVencer() {
-      
+        return enemigos.filter({enemigo => enemigo.poderBase() < self.poderDePelea()})
     }
     
     method hogaresQuePuedeConquistar() {
-        self.enemigosQuePuedeVencer().map({enemigo => enemigo.hogar()})
+        return self.enemigosQuePuedeVencer().map({enemigo => enemigo.hogar()})
+    }
+
+    // 2.4
+
+    method esPoderoso() = enemigos == self.enemigosQuePuedeVencer()
+
+    // 2.5
+
+    method poseeUnArtefactoFatal() {
+      
+    }
+
+    method artefactoFatal() {
+      
     }
 
     // setter
@@ -66,16 +81,36 @@ object rolando {
 object caterina {
     var hogar     = fortalezaDeAcero
     var poderBase = 28
+
+    // getter
+
+    method hogar() = hogar
+
+    method poderBase() = poderBase
 }
 
 object archibaldo {
     var hogar     = palacioDeMarmol
     var poderBase = 16
+
+
+    // getter
+
+    method hogar() = hogar
+
+    method poderBase() = poderBase 
 }
 
 object astra {
     var hogar     = torreDeMarfil
     var poderBase = 14
+
+
+    // getter
+
+    method hogar() = hogar
+
+    method poderBase() = poderBase
 }
 
 // CASAS
