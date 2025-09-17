@@ -54,12 +54,12 @@ describe "Parte 1 - Referencias" {
 describe "Parte 2 - Mensajes con bloques" {
 
   method initialize() {
-    rolando.mochila(#{espadaDelDestino, armaduraDeAceroValyrio, collarDivino})
     rolando.capacidadMaximaMochila(3)
     rolando.poderBase(5)
   }
 
   test "1 - Ejemplo de batalla" {
+    rolando.mochila(#{espadaDelDestino, armaduraDeAceroValyrio, collarDivino})
     rolando.batallar()
 
     assert.equals(6, rolando.poderBase())
@@ -83,6 +83,27 @@ describe "Parte 2 - Mensajes con bloques" {
   }
 
   test "1 - Ejemplo de poder de pelea" {
+    rolando.mochila(#{espadaDelDestino, armaduraDeAceroValyrio, collarDivino})
     assert.equals(19, rolando.poderDePelea())
+  }
+
+  test "2 - Ejemplo de hechizos" {
+    rolando.mochila(#{libroDeHechizos})
+    castillo.artefactos(#{espadaDelDestino, armaduraDeAceroValyrio, collarDivino})
+    libroDeHechizos.hechizos([bendicion, invisivilidad, invocacion])
+
+    assert.equals(4, libroDeHechizos.poderDePelea(rolando))
+
+    rolando.batallar()
+
+    assert.equals(6, libroDeHechizos.poderDePelea(rolando))
+
+    rolando.batallar()
+
+    assert.equals(7, libroDeHechizos.poderDePelea(rolando))
+
+    rolando.batallar()
+
+    assert.equals(0, libroDeHechizos.poderDePelea(rolando))
   }
 }

@@ -28,6 +28,8 @@ object rolando {
         poderBase += 1
     }
 
+    method artefactoMasPoderosoGuardado(portador) = hogar.artefactoMasPoderoso(portador)
+
     // setter
 
     method capacidadMaximaMochila(nuevaCapacidad) {
@@ -44,6 +46,10 @@ object castillo {
 
     method dejarArtefactos(listaDeArtefactos) {
         artefactos.addAll(listaDeArtefactos)
+    }
+
+    method artefactoMasPoderoso(portador) {
+        return artefactos.max({artefacto => artefacto.poderDePelea(portador)})
     }
 }
 
@@ -65,7 +71,28 @@ object espadaDelDestino {
 }
 
 object libroDeHechizos {
-    
+    var cantidadDeUsos = 0
+    var hechizos = []
+
+    method poderDePelea(portador) {
+        return if (not(hechizos.isEmpty())) {
+            hechizos.first().poderDePelea(portador)
+        }
+        else 0
+    }
+
+    method usar() {
+        cantidadDeUsos += 1
+        if (not(hechizos.isEmpty())) {
+            hechizos.remove(hechizos.first())
+        }
+    }
+
+    // setter
+
+    method hechizos(_hechizos) {
+        hechizos = _hechizos
+    }
 }
 
 object collarDivino {
@@ -93,4 +120,20 @@ object armaduraDeAceroValyrio {
     method usar() {
         cantidadDeUsos += 1
     }
+}
+
+// HECHIZOS
+
+object bendicion {
+    var poderBase = 4
+
+    method poderDePelea(portador) = poderBase
+}
+
+object invisivilidad {
+    method poderDePelea(portador) = portador.poderBase()
+}
+
+object invocacion {
+    method poderDePelea(portador) = portador.artefactoMasPoderosoGuardado(portador).poderDePelea(portador) 
 }
