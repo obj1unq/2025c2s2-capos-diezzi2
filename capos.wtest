@@ -1,0 +1,134 @@
+import capos.*
+
+describe "Parte 1 - Referencias" {
+
+  method initialize() {
+    rolando.mochila(#{})
+    rolando.capacidadMaximaMochila(2)
+    rolando.hogar(castilloDePiedra)
+    rolando.historialDeArtefactosEncontrados([])
+    castilloDePiedra.artefactos(#{})
+  }
+
+  test "1 - Rolando encuentra un tercer artefacto y no puede recolectarlo" {
+    rolando.recolectar(espadaDelDestino)
+    rolando.recolectar(libroDeHechizos)
+    rolando.recolectar(collarDivino)
+
+    assert.equals(#{espadaDelDestino,libroDeHechizos}, rolando.mochila())
+  }
+
+  test "2 - Rolando deja dos artefactos en su castilloDePiedra y recolecta un tercero" {
+    rolando.recolectar(espadaDelDestino)
+    rolando.recolectar(libroDeHechizos)
+    rolando.llegarAlCastillo()
+    rolando.recolectar(collarDivino)
+    rolando.llegarAlCastillo()
+
+    assert.equals(#{espadaDelDestino, libroDeHechizos, collarDivino}, castilloDePiedra.artefactos())
+  }
+
+  test "3 - Rolando tiene 3 tres objetos en su posesión" {
+    castilloDePiedra.artefactos(#{collarDivino, espadaDelDestino})
+    rolando.recolectar(armaduraDeAceroValyrio)
+
+    assert.that(rolando.posee(collarDivino))
+    assert.that(rolando.posee(espadaDelDestino))
+    assert.that(rolando.posee(armaduraDeAceroValyrio))
+    assert.notThat(rolando.posee(libroDeHechizos))
+    assert.equals(3, rolando.posesiones().size())
+  }
+
+  test "4 - Rolando encuentra 5 artefactos" {
+    rolando.recolectar(espadaDelDestino)
+    rolando.recolectar(libroDeHechizos)
+    rolando.recolectar(collarDivino)
+    rolando.llegarAlCastillo()
+    rolando.recolectar(armaduraDeAceroValyrio)
+    rolando.recolectar(collarDivino)
+    
+    assert.equals([espadaDelDestino, libroDeHechizos, collarDivino, armaduraDeAceroValyrio, collarDivino], rolando.historialDeArtefactosEncontrados())
+  }
+}
+
+describe "Parte 2 - Mensajes con bloques" {
+
+  method initialize() {
+    rolando.capacidadMaximaMochila(3)
+    rolando.poderBase(5)
+  }
+
+  test "1 - Ejemplo de batalla" {
+    rolando.mochila(#{espadaDelDestino, armaduraDeAceroValyrio, collarDivino})
+    rolando.batallar()
+
+    assert.equals(6, rolando.poderBase())
+    assert.equals(3, espadaDelDestino.poderDePelea(rolando))
+    assert.equals(6, armaduraDeAceroValyrio.poderDePelea(rolando))
+    assert.equals(3, collarDivino.poderDePelea(rolando))
+
+    rolando.batallar()
+
+    assert.equals(7, rolando.poderBase())
+    assert.equals(3.5, espadaDelDestino.poderDePelea(rolando))
+    assert.equals(6, armaduraDeAceroValyrio.poderDePelea(rolando))
+    assert.equals(5, collarDivino.poderDePelea(rolando))
+
+    rolando.batallar()
+
+    assert.equals(8, rolando.poderBase())
+    assert.equals(4, espadaDelDestino.poderDePelea(rolando))
+    assert.equals(6, armaduraDeAceroValyrio.poderDePelea(rolando))
+    assert.equals(6, collarDivino.poderDePelea(rolando))
+  }
+
+  test "1 - Ejemplo de poder de pelea" {
+    rolando.mochila(#{espadaDelDestino, armaduraDeAceroValyrio, collarDivino})
+    assert.equals(19, rolando.poderDePelea())
+  }
+
+  test "2 - Ejemplo de hechizos" {
+    rolando.mochila(#{libroDeHechizos})
+    castilloDePiedra.artefactos(#{espadaDelDestino, armaduraDeAceroValyrio, collarDivino})
+    libroDeHechizos.hechizos([bendicion, invisivilidad, invocacion])
+
+    assert.equals(4, libroDeHechizos.poderDePelea(rolando))
+
+    rolando.batallar()
+
+    assert.equals(6, libroDeHechizos.poderDePelea(rolando))
+
+    rolando.batallar()
+
+    assert.equals(7, libroDeHechizos.poderDePelea(rolando))
+
+    rolando.batallar()
+
+    assert.equals(0, libroDeHechizos.poderDePelea(rolando))
+  }
+
+  test "3 - Ejemplo de enemigos que puede vencer y hogares que puede conquistar" {
+    rolando.mochila(#{espadaDelDestino, armaduraDeAceroValyrio, collarDivino})
+
+    assert.equals(#{archibaldo, astra}, rolando.enemigosQuePuedeVencer())
+    assert.equals([palacioDeMarmol, torreDeMarfil], rolando.hogaresQuePuedeConquistar())
+  }
+
+  test "4 - Ejemplos con Rolando poderoso y no poderoso" {
+    rolando.mochila(#{espadaDelDestino, armaduraDeAceroValyrio, collarDivino})
+
+    assert.notThat(rolando.esPoderoso())
+
+    rolando.poderBase(10)
+
+    assert.that(rolando.esPoderoso())
+  }
+
+  test "5 - " {
+    rolando.poderBase(15)
+    rolando.mochila(#{espadaDelDestino, armaduraDeAceroValyrio, collarDivino})
+    
+    assert.that(rolando.poseeUnArtefactoFatal())
+    ass
+  }
+}
